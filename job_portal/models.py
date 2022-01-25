@@ -35,6 +35,11 @@ class Job(models.Model):
     poster = models.ForeignKey(Provider, on_delete=models.CASCADE)
 
 
+class Application(models.Model):
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    seeker = models.ForeignKey(Seeker, on_delete=models.CASCADE)
+
+
 class Skill(models.Model):
     name = models.CharField(max_length=255)
 
