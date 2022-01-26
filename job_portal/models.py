@@ -3,10 +3,10 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Seeker(models.Model):
-    full_name = models.CharField(max_length=255)
-    experience = models.TextField()
-    about_me = models.TextField()
-    resume_url = models.URLField()
+    full_name = models.CharField(max_length=255, default=None, blank=True, null=True)
+    experience = models.TextField(default=None, blank=True, null=True)
+    about_me = models.TextField(default=None, blank=True, null=True)
+    resume_url = models.URLField(default=None, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -14,11 +14,14 @@ class Seeker(models.Model):
 
 
 class Provider(models.Model):
-    name = models.CharField(max_length=255)
-    about = models.TextField()
-    city = models.CharField(max_length=255)
-    country = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, default=None, blank=True, null=True)
+    about = models.TextField(default=None, blank=True, null=True)
+    city = models.CharField(max_length=255, default=None, blank=True, null=True)
+    country = models.CharField(max_length=255, default=None, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
 
 
 class Job(models.Model):
@@ -34,21 +37,36 @@ class Job(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
     poster = models.ForeignKey(Provider, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
 
 class Application(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     seeker = models.ForeignKey(Seeker, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.job.name + "-" + self.seeker.full_name
+
 
 class Skill(models.Model):
     name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
 
 
 class SeekerSkill(models.Model):
     seeker = models.ForeignKey(Seeker, on_delete=models.CASCADE)
     skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.seeker.full_name + "-" + self.skill.name
+
 
 class JobSkill(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.job.name + "-" + self.skill.name
