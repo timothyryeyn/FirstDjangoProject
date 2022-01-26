@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'job_portal.apps.JobPortalConfig',
+    'users.apps.UsersConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',

@@ -1,4 +1,4 @@
-{% extends "job_portal/base.html" %}
+{% extends "users/base.html" %}
 {% block content %}
 {% load static %}
 
@@ -15,30 +15,15 @@
             </div>
         </div>
         <div class="flex flex-col gap-y-[32px] bg-white text-[38px] p-[29px] rounded-[6px] w-[451px] -ml-[300px]">
-            <h1 class="font-semibold">Register</h1>
+            <h1 class="font-semibold">Login</h1>
             <div class="flex flex-col gap-y-[32px]">
                 <div class="flex flex-col gap-y-[16px]">
                     <div class="flex flex-col gap-y-1">
                         <label for="*" class="label">Username</label>
-                        <input type="text" placeholder="Enter username" class="input-2px">
-                    </div>
-                    <div class="flex flex-col gap-y-1">
-                        <label for="*" class="label">Email</label>
-                        <input type="email" placeholder="Enter email" class="input-2px">
-                    </div>
-                    <div class="flex flex-col gap-y-1">
-                        <label for="*" class="label">User Type</label>
-                        <select name="user-type" id="" required class="select">
-                            <option value="">Job Seeker</option>
-                            <option value="">Job Provider</option>
-                        </select>
-                    </div>
-                    <div class="flex flex-col gap-y-1">
-                        <label for="*" class="label">Password</label>
                         <input type="text" placeholder="Username" class="input-2px">
                     </div>
                     <div class="flex flex-col gap-y-1">
-                        <label for="*" class="label">Confirm Password</label>
+                        <label for="*" class="label">Password</label>
                         <input type="text" placeholder="Username" class="input-2px">
                     </div>
                 </div>
@@ -47,7 +32,7 @@
                 </button>
             </div>
             <div class="flex items-center gap-x-1 self-center">
-                <span class="text-sm">Already have an account?</span>
+                <span class="text-sm">Do not have an account yet?</span>
                 <a href="#" class="text-sm text-vivid-blue">Sign Up</a>
             </div>
         </div>
