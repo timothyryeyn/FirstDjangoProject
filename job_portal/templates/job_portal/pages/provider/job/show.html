@@ -9,17 +9,18 @@
         <div x-data="{ show: false }" class="relative">
             <div class="inline-flex items-center gap-x-2">
                 <div class="flex flex-col items-end">
-                    <span>Sarah Morrison</span>
-                    <span class="text-xs font-light">Job Title</span>
+                    <span>{{ user.username }}</span>
                 </div>
                 <img src="{% static 'assets/profile.svg' %}" alt="" class="w-[36px] h-[36px]" @click="show = ! show">
             </div>
             <div x-show="show"
                 class="absolute bg-white p-[12px] right-0 w-[120px] rounded-[4px] shadow-[0_0_40px_0_rgba(0,0,0,0.1)]">
-                <a href="" class="block w-full font-light p-2 text-center hover:bg-light-grayish-blue rounded-[4px]">
+                <a href="{% url 'profile' %}"
+                    class="block w-full font-light p-2 text-center hover:bg-light-grayish-blue rounded-[4px]">
                     Profile
                 </a>
-                <a href="" class="block w-full font-light p-2 text-center hover:bg-light-grayish-blue rounded-[4px]">
+                <a href="{% url 'logout' %}"
+                    class="block w-full font-light p-2 text-center hover:bg-light-grayish-blue rounded-[4px]">
                     Logout
                 </a>
             </div>

@@ -27,17 +27,25 @@
         </div>
     </nav>
     <main class="flex flex-col gap-y-[44px] flex-grow px-[200px] py-[60px]">
-        <section class="flex-grow flex flex-col gap-y-[43px] bg-white min-h-[400px] p-[36px]">
-            <div class="flex-shrink-0 flex flex-col gap-y-[21px]">
-                <div class="flex justify-between items-start">
-                    <a href="#" class="flex items-center gap-x-2">
-                        <span><img src="assets/chevron-left.svg" alt=""></span>
-                        <span class="uppercase text-sm font-light">Go Back</span>
-                    </a>
+        <section class="flex-shrink-0 flex items-center justify-between bg-white p-[36px]">
+            <div class="flex items-center gap-x-[48px]">
+                <img src="assets/profile.svg" alt="" class="w-[90px] h-[90px]">
+                <div class="flex flex-col gap-y-[12px]">
+                    <span class="font-semibold text-[22px]">{{ user.username }}</span>
+                    <span class="font-light">{{ user.email }}</span>
                 </div>
-                <div class="text-[28px] font-semibold">Applicant Information</div>
             </div>
+            <div>
+                <button class="btn-outline">Edit</button>
+            </div>
+        </section>
 
+        {% if user.provider %}
+        <section class="flex-grow flex flex-col gap-y-[43px] bg-white min-h-[400px] p-[36px]">
+            <div class="flex-shrink-0 flex justify-between items-center">
+                <div class="text-[22px] font-semibold italic text-left">Personal Information</div>
+                <button class="btn-outline">Edit</button>
+            </div>
             <div class="flex-grow grid grid-cols-3 gap-x-8">
                 <div class="flex flex-col gap-y-[34px]">
                     <div class="flex flex-col gap-y-[8px]">
@@ -87,6 +95,7 @@
                 </div>
             </div>
         </section>
+        {% endif %}
     </main>
 </body>
 

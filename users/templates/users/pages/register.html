@@ -17,41 +17,60 @@
         <div class="flex flex-col gap-y-[32px] bg-white text-[38px] p-[29px] rounded-[6px] w-[451px] -ml-[300px]">
             <h1 class="font-semibold">Register</h1>
             <div class="flex flex-col gap-y-[32px]">
-                <form action="POST">
+                <form method="POST">
                     {% csrf_token %}
                     <div class="flex flex-col gap-y-[16px]">
                         <div class="flex flex-col gap-y-1">
                             <label for="*" class="label">Username</label>
-                            <input type="text" placeholder="Enter username" class="input-2px">
+                            {{ form.username }}
+                            {% if form.username.errors %}
+                            <div class="text-red-500 text-xs mt-[5px]">
+                                {{ form.username.errors }}
+                            </div>
+                            {% endif %}
                         </div>
                         <div class="flex flex-col gap-y-1">
                             <label for="*" class="label">Email</label>
-                            <input type="email" placeholder="Enter email" class="input-2px">
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                            <div class="text-red-500 text-xs mt-[5px]">
+                                {{ form.email.errors }}
+                            </div>
+                            {% endif %}
                         </div>
                         <div class="flex flex-col gap-y-1">
                             <label for="*" class="label">User Type</label>
-                            <select name="user-type" id="" required class="select">
-                                <option value="">Job Seeker</option>
-                                <option value="">Job Provider</option>
-                            </select>
+                            {{ form.type }}
+                            {% if form.type.errors %}
+                            <div class="text-red-500 text-xs mt-[5px]">
+                                {% for error in form.type.errors %}
+                                <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
                         </div>
                         <div class="flex flex-col gap-y-1">
                             <label for="*" class="label">Password</label>
-                            <input type="text" placeholder="Username" class="input-2px">
+                            {{ form.password1 }}
                         </div>
                         <div class="flex flex-col gap-y-1">
                             <label for="*" class="label">Confirm Password</label>
-                            <input type="text" placeholder="Username" class="input-2px">
+                            {{ form.password2 }}
+                            {% if form.password2.errors %}
+                            <div class="text-red-500 text-xs mt-[5px]">
+                                {{ form.password2.errors }}
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
-                    <button class="btn w-full" type="submit">
-                        Login
+                    <button class="btn w-full" type="submit" value="Submit">
+                        Register
                     </button>
                 </form>
             </div>
             <div class="flex items-center gap-x-1 self-center">
                 <span class="text-sm">Already have an account?</span>
-                <a href="#" class="text-sm text-vivid-blue">Sign Up</a>
+                <a href="{% url 'login' %}" class="text-sm text-vivid-blue">Sign In</a>
             </div>
         </div>
     </div>

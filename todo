@@ -1,3 +1,7 @@
  - Revert migration @done
  - Add Application Model @done
- - Making attributes nullable
+ - Making attributes nullable @done
+ - Save relation on user @done
+ - Profile page
+     - remove editing of user info
+     - check if all attributes are empty method
