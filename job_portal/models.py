@@ -7,9 +7,12 @@ class Seeker(models.Model):
     experience = models.TextField(default=None, blank=True, null=True)
     about_me = models.TextField(default=None, blank=True, null=True)
     resume_url = models.URLField(default=None, blank=True, null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
+        if (self.full_name is None): 
+            return self.user.username
+
         return self.full_name
 
 
@@ -18,9 +21,12 @@ class Provider(models.Model):
     about = models.TextField(default=None, blank=True, null=True)
     city = models.CharField(max_length=255, default=None, blank=True, null=True)
     country = models.CharField(max_length=255, default=None, blank=True, null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
+        if (self.name is None): 
+            return self.user.username
+            
         return self.name
 
 
