@@ -10,4 +10,5 @@ def home(request):
     context = {
         'jobs': Job.objects.all()
     }
+    
     return render(request, 'job_portal/pages/home.html', context)

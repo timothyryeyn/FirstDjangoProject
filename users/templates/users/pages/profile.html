@@ -1,6 +1,7 @@
 {% extends "job_portal/base.html" %}
 {% block content %}
 {% load static %}
+{% load humanize %}
 
 <body class="flex flex-col bg-very-pale-blue">
     <nav class="flex-shrink-0 flex justify-between items-center bg-white py-[15px] pl-[150px] pr-[50px]">
@@ -29,18 +30,15 @@
     <main class="flex flex-col gap-y-[44px] flex-grow px-[200px] py-[60px]">
         <section class="flex-shrink-0 flex items-center justify-between bg-white p-[36px]">
             <div class="flex items-center gap-x-[48px]">
-                <img src="assets/profile.svg" alt="" class="w-[90px] h-[90px]">
+                <img src="{% static 'assets/profile.svg' %}" alt="" class="w-[90px] h-[90px]">
                 <div class="flex flex-col gap-y-[12px]">
                     <span class="font-semibold text-[22px]">{{ user.username }}</span>
                     <span class="font-light">{{ user.email }}</span>
                 </div>
             </div>
-            <div>
-                <button class="btn-outline">Edit</button>
-            </div>
         </section>
 
-        {% if user.provider %}
+        {% if user.seeker %}
         <section class="flex-grow flex flex-col gap-y-[43px] bg-white min-h-[400px] p-[36px]">
             <div class="flex-shrink-0 flex justify-between items-center">
                 <div class="text-[22px] font-semibold italic text-left">Personal Information</div>
@@ -51,51 +49,146 @@
                     <div class="flex flex-col gap-y-[8px]">
                         <div class="label-2">Fullname</div>
                         <div class="info">
-                            Timothy Ryeyn Lim Perez
+                            {% if user.seeker.full_name %}
+                            {{ user.seeker.full_name }}
+                            {% else %}
+                            <span class="text-xs font-normal">Not set</span>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="flex flex-col gap-y-[8px]">
                         <div class="label-2">Skills</div>
                         <div class="info prose">
+                            {% if user.seeker.seekerskill_set.all %}
                             <ul>
-                                <li>Foo</li>
-                                <li>Foo</li>
-                                <li>Foo</li>
+                                {% for seeker_skill in user.seeker.seekerskill_set.all %}
+                                <li>{{ seeker_skill.skill.name }}</li>
+                                {% endfor %}
                             </ul>
+                            {% else %}
+                            <span class="text-xs font-normal">Not set</span>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="inline-flex flex-col items-start gap-y-[8px]">
                         <div class="label-2">Resume</div>
-                        <button class="btn">View Resume</button>
+                        {% if user.seeker.resume_url %}
+                        <a href=""><button class="btn">View Resume</button></a>
+                        {% else %}
+                        <span class="text-xs font-normal">Not set</span>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col-span-2 flex flex-col gap-y-[34px]">
                     <div class="flex flex-col gap-y-[8px]">
                         <div class="label-2">About Me</div>
                         <div class="info prose">
-                            BS Information Technology or BS Computer Science or BS Electronics Engineering
-                            Exposure on developing web solutions in Drupal and PHP implementations in a LAMP
-                            environment as well as user interfaces
-                            for websites and or web application
-                            Ability to architect enterprise Drupal solutions including data, display, and
-                            information
+                            {% if user.seeker.about %}
+                            {{ user.seeker.about }}
+                            {% else %}
+                            <span class="text-xs font-normal">Not set</span>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="flex flex-col gap-y-[8px]">
                         <div class="label-2">Experience</div>
                         <div class="info prose">
-                            BS Information Technology or BS Computer Science or BS Electronics Engineering
-                            Exposure on developing web solutions in Drupal and PHP implementations in a LAMP
-                            environment as well as user interfaces
-                            for websites and or web application
-                            Ability to architect enterprise Drupal solutions including data, display, and
-                            information
+                            {% if user.seeker.experience %}
+                            {{ user.seeker.experience }}
+                            {% else %}
+                            <span class="text-xs font-normal">Not set</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        {% else %}
+        <section class="flex-grow flex flex-col gap-y-[43px] bg-white min-h-[400px] p-[36px]">
+            <div class="flex-shrink-0 flex justify-between items-center">
+                <div class="text-[22px] font-semibold italic text-left">Job Provider/Company Information</div>
+                <a href=""><button class="btn-outline">Edit</button></a>
+            </div>
+            <div class="flex-grow grid grid-cols-3 gap-x-8">
+                <div class="flex flex-col gap-y-[34px]">
+                    <div class="flex flex-col gap-y-[8px]">
+                        <div class="label-2">Provider Name</div>
+                        <div class="info">
+                            {% if user.provider.name %}
+                            {{ user.provider.name }}
+                            {% else %}
+                            <span class="text-xs font-normal">Not set</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-y-[8px]">
+                        <div class="label-2">City - Country</div>
+                        <div class="info">
+                            {% if user.provider.city %}
+                            {{ user.provider.city }} - {{ user.provider.country }}
+                            {% else %}
+                            <span class="text-xs font-normal">Not set</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-span-2 flex flex-col gap-y-[34px]">
+                    <div class="flex flex-col gap-y-[8px]">
+                        <div class="label-2">About Us</div>
+                        <div class="info prose">
+                            {% if user.provider.about %}
+                            {{ user.provider.about }}
+                            {% else %}
+                            <span class="text-xs font-normal">Not set</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="flex-grow flex flex-col gap-y-[43px] bg-white min-h-[400px] p-[36px]">
+            <div class="flex-shrink-0 flex justify-between items-center">
+                <div class="text-[22px] font-semibold italic text-left">Posted Jobs</div>
+                <button class="btn-outline">Post Job</button>
+            </div>
+            <div class="flex flex-col gap-y-[41px] px-[70px] py-[20px] max-h-[700px] overflow-auto">
+                {% for job in user.provider.job_set.all %}
+                <div class="flex flex-col p-[23px] shadow-[0_0_20px_0_rgba(24,47,67,0.2)] rounded-[6px]">
+                    <div class="flex justify-between">
+                        <div class="flex items-center gap-x-[18px] text-xs font-light uppercase">
+                            <span>posted on</span>
+                            <span>{{ job.date_posted|date:"F j, Y" }}</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-y-[12px] mt-[14px]">
+                        <div class="flex items-center gap-x-[14px]">
+                            <div class="text-[22px] font-semibold italic">
+                                {{ job.name }}
+                            </div>
+                            <div class="flex items-center gap-x-[8px]">
+                                {% for jobskill in job.jobskill_set.all %}
+                                <div class="pill">{{ jobskill.skill.name }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="font-light">
+                            {{ job.description|truncatewords:50 }}
+                        </div>
+                    </div>
+                    <div class="flex justify-between mt-[28px]">
+                        <div class="text-lg font-semibold">${{ job.salary|intcomma }}</div>
+                        <a href="#" class="flex items-center gap-x-2">
+                            <span class="uppercase text-sm font-light">view posting</span>
+                            <span><img src="{% static 'assets/chevron-right.svg' %}" alt=""></span>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
         {% endif %}
+
     </main>
 </body>
 

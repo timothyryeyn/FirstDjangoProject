@@ -3,5 +3,13 @@
  - Making attributes nullable @done
  - Save relation on user @done
  - Profile page
-     - remove editing of user info
-     - check if all attributes are empty method
+     - remove editing of user info @done
+     - check if all attributes are empty method @done
+     - Edit profile infos
+         - check if values should be in order @done
+         - skills checkbox
+         - saving @done
+         - file input @done
+         - migrate to modelform
+         - viewing uploaded resume
+         - prepopulate fields on edit
