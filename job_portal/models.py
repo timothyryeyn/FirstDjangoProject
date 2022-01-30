@@ -6,7 +6,7 @@ class Seeker(models.Model):
     full_name = models.CharField(max_length=255, default=None, blank=True, null=True)
     experience = models.TextField(default=None, blank=True, null=True)
     about_me = models.TextField(default=None, blank=True, null=True)
-    resume_url = models.URLField(default=None, blank=True, null=True)
+    resume = models.FileField(default=None, blank=True, null=True, upload_to='documents/%Y/%m/%d')
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
