@@ -7,9 +7,26 @@
      - check if all attributes are empty method @done
      - Edit profile infos
          - check if values should be in order @done
-         - skills checkbox
+         - skills checkbox @done
          - saving @done
          - file input @done
-         - migrate to modelform
-         - viewing uploaded resume
-         - prepopulate fields on edit
+         - migrate to modelform @done
+         - viewing uploaded resume @done
+         - prepopulate fields on edit @done
+         - change password
+         - delete account
+- Provider
+    - post jobs
+    - view posted jobs
+    - view applicants
+    - deactivate posted job
+- Home
+    - jobs list (query params)
+    - Apply for job
+- Alerts
+    - skill matched job posted
+- Reports generation
+    - list of users
+    - activity logs
+    - list of jobs
+    - providers
