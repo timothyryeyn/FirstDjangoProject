@@ -50,6 +50,7 @@ class Job(models.Model):
 class Application(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     seeker = models.ForeignKey(Seeker, on_delete=models.CASCADE)
+    date_applied = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.job.name + "-" + self.seeker.full_name
