@@ -42,7 +42,7 @@
         <section class="flex-grow flex flex-col gap-y-[43px] bg-white min-h-[400px] p-[36px]">
             <div class="flex-shrink-0 flex justify-between items-center">
                 <div class="text-[22px] font-semibold italic text-left">Personal Information</div>
-                <button class="btn-outline">Edit</button>
+                <a href="{% url 'profile.edit' %}"><button class="btn-outline">Edit</button></a>
             </div>
             <div class="flex-grow grid grid-cols-3 gap-x-8">
                 <div class="flex flex-col gap-y-[34px]">
@@ -83,8 +83,8 @@
                     <div class="flex flex-col gap-y-[8px]">
                         <div class="label-2">About Me</div>
                         <div class="info prose">
-                            {% if user.seeker.about %}
-                            {{ user.seeker.about }}
+                            {% if user.seeker.about_me %}
+                            {{ user.seeker.about_me }}
                             {% else %}
                             <span class="text-xs font-normal">Not set</span>
                             {% endif %}
@@ -107,7 +107,7 @@
         <section class="flex-grow flex flex-col gap-y-[43px] bg-white min-h-[400px] p-[36px]">
             <div class="flex-shrink-0 flex justify-between items-center">
                 <div class="text-[22px] font-semibold italic text-left">Job Provider/Company Information</div>
-                <a href=""><button class="btn-outline">Edit</button></a>
+                <a href="{% url 'profile.edit' %}"><button class="btn-outline">Edit</button></a>
             </div>
             <div class="flex-grow grid grid-cols-3 gap-x-8">
                 <div class="flex flex-col gap-y-[34px]">

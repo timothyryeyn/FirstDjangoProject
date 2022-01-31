@@ -1,5 +1,5 @@
 from django import forms
-from job_portal.models import Seeker, Provider
+from job_portal.models import Seeker, Provider, Skill
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
 
@@ -27,7 +27,7 @@ class UserLoginForm(AuthenticationForm):
 
     username = UsernameField(widget=forms.TextInput(
         attrs={
-            'class': 'input-2px', 
+            'class': 'input-2px',
             'placeholder': 'Enter username'
         }
     ))
@@ -39,19 +39,29 @@ class UserLoginForm(AuthenticationForm):
     ))
 
 
-class ProviderForm(forms.Form):
+class ProviderForm(forms.ModelForm):
     class Meta:
         model = Provider
         fields = ['name', 'about', 'city', 'country']
-
-    name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Enter name', 'class': 'input-1px w-[250px]'}))
-    city = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Enter city', 'class': 'input-1px w-[250px]'}))
-    about = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Enter about', 'class': 'input-1px'}))
-    country = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Enter country', 'class': 'input-1px w-[250px]'}))
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': 'Enter name', 'class': 'input-1px w-[250px]'}),
+            'city': forms.TextInput(attrs={'placeholder': 'Enter city', 'class': 'input-1px w-[250px]'}),
+            'country': forms.TextInput(attrs={'placeholder': 'Enter country', 'class': 'input-1px w-[250px]'}),
+            'about': forms.Textarea(attrs={'placeholder': 'Enter about', 'class': 'input-1px'}),
+        }
 
 
 class SeekerForm(forms.ModelForm):
     class Meta:
         model = Seeker
         fields = ['full_name', 'about_me', 'experience', 'resume']
-        
+        widgets = {
+            'full_name': forms.TextInput(attrs={'placeholder': 'Enter name', 'class': 'input-1px w-[250px]'}),
+            'about_me': forms.Textarea(attrs={'placeholder': 'Enter about', 'class': 'input-1px'}),
+            'experience': forms.Textarea(attrs={'placeholder': 'Enter about', 'class': 'input-1px'}),
+            'resume': forms.FileInput(attrs={'class': 'input-1px w-max'}),
+        }
+
+    seekerskill = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(), widget=forms.CheckboxSelectMultiple)
+    
+
