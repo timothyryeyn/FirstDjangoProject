@@ -1,4 +1,5 @@
 from pprint import pprint
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from .forms import UserRegisterForm, ProviderForm, SeekerForm
@@ -28,14 +29,14 @@ def register(request):
     return render(request, 'users/pages/register.html', { 'form': form })
 
 
+@login_required
 def viewProfile(request):
-    if not request.user.is_authenticated: return redirect(settings.LOGIN_URL)
 
     return render(request, 'users/pages/profile.html')
 
 
+@login_required
 def editProfile(request):
-    if not request.user.is_authenticated: return redirect(settings.LOGIN_URL)
 
     seekerForm = SeekerForm()
     providerForm = ProviderForm()
@@ -84,7 +85,7 @@ def editProfile(request):
                 'about_me': seeker.about_me,       
                 'experience': seeker.experience,
                 'seekerskill': [
-                    skill for skill in Seeker.objects.filter(user_id=request.user.id).first().seekerskill_set.all().values_list("skill_id", flat=True)
+                    skill for skill in seeker.seekerskill_set.all().values_list("skill_id", flat=True)
                 ]
             }
         )

@@ -6,8 +6,7 @@
 <body class="flex flex-col bg-very-pale-blue">
     <nav class="flex-shrink-0 flex justify-between items-center bg-white py-[15px] pl-[150px] pr-[50px]">
 
-        <a href="{% url 'job_portal-home' %}"><img src="{% static 'assets/logo-blue.png' %}" alt=""
-                class="w-[120px] h-[25px]"></a>
+        <a href="{% url 'home' %}"><img src="{% static 'assets/logo-blue.png' %}" alt="" class="w-[120px] h-[25px]"></a>
         <div x-data="{ show: false }" class="relative">
             <div class="inline-flex items-center gap-x-2">
                 <div class="flex flex-col items-end">
@@ -151,7 +150,7 @@
         <section class="flex-grow flex flex-col gap-y-[43px] bg-white min-h-[400px] p-[36px]">
             <div class="flex-shrink-0 flex justify-between items-center">
                 <div class="text-[22px] font-semibold italic text-left">Posted Jobs</div>
-                <button class="btn-outline">Post Job</button>
+                <a href="{% url 'post_job' %}"><button class="btn-outline">Post Job</button></a>
             </div>
             <div class="flex flex-col gap-y-[41px] px-[70px] py-[20px] max-h-[700px] overflow-auto">
                 {% for job in user.provider.job_set.all %}
@@ -179,7 +178,7 @@
                     </div>
                     <div class="flex justify-between mt-[28px]">
                         <div class="text-lg font-semibold">${{ job.salary|intcomma }}</div>
-                        <a href="#" class="flex items-center gap-x-2">
+                        <a href="{% url 'show_posted_job' id=job.id %}" class="flex items-center gap-x-2">
                             <span class="uppercase text-sm font-light">view posting</span>
                             <span><img src="{% static 'assets/chevron-right.svg' %}" alt=""></span>
                         </a>

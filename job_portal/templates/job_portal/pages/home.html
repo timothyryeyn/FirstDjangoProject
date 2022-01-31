@@ -6,8 +6,7 @@
 <body class="flex flex-col bg-very-pale-blue">
     <nav class="flex-shrink-0 flex justify-between items-center bg-white py-[15px] pl-[150px] pr-[50px]">
 
-        <a href="{% url 'job_portal-home' %}"><img src="{% static 'assets/logo-blue.png' %}" alt=""
-                class="w-[120px] h-[25px]"></a>
+        <a href="{% url 'home' %}"><img src="{% static 'assets/logo-blue.png' %}" alt="" class="w-[120px] h-[25px]"></a>
         <div x-data="{ show: false }" class="relative">
             <div class="inline-flex items-center gap-x-2">
                 <div class="flex flex-col items-end">
@@ -31,24 +30,26 @@
     <main class="flex flex-col gap-y-[44px] flex-grow px-[200px] py-[60px]">
         <section class="flex-grow flex flex-col gap-y-[55px] bg-white min-h-[400px] p-[36px]">
             <div class="flex flex-col items-start mx-auto w-max gap-y-[8px]">
-                <div class="flex gap-x-[16px]">
-                    <input type="search" name="" id="" placeholder="Search" class="input-1px w-[400px]">
-                    <button class="btn">Search</button>
-                </div>
-                <div class="flex gap-x-[18px]">
-                    <div class="flex flex-col gap-y-[5px]">
-                        <span class="label">City</span>
-                        <select name="" id="" required class="select-2 w-[200px]">
-                            <option value="" disabled selected hidden>Select City</option>
-                        </select>
+                <form method="GET">
+                    <div class="flex gap-x-[16px]">
+                        <input type="search" name="search" id="" placeholder="Search" class="input-1px w-[400px]">
+                        <button class="btn" type="submit">Search</button>
                     </div>
-                    <div class="flex flex-col gap-y-[5px]">
-                        <span class="label">Country</span>
-                        <select name="" id="" required class="select-2 w-[200px]">
-                            <option value="" disabled selected hidden>Select Country</option>
-                        </select>
+                    <div class="flex gap-x-[18px]">
+                        <div class="flex flex-col gap-y-[5px]">
+                            <span class="label">City</span>
+                            <select name="" id="" class="select-2 w-[200px]">
+                                <option value="" disabled selected hidden>Select City</option>
+                            </select>
+                        </div>
+                        <div class="flex flex-col gap-y-[5px]">
+                            <span class="label">Country</span>
+                            <select name="" id="" class="select-2 w-[200px]">
+                                <option value="" disabled selected hidden>Select Country</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
             <div class="flex flex-col gap-y-[32px]">
                 <div class="text-[22px] font-semibold italic">Search Results for Foobar</div>
@@ -79,7 +80,7 @@
                         </div>
                         <div class="flex justify-between mt-[28px]">
                             <div class="text-lg font-semibold">${{ job.salary|intcomma }}</div>
-                            <a href="#" class="flex items-center gap-x-2">
+                            <a href="{% url 'show_job' id=job.id %}" class="flex items-center gap-x-2">
                                 <span class="uppercase text-sm font-light">view posting</span>
                                 <span><img src="{% static 'assets/chevron-right.svg' %}" alt=""></span>
                             </a>
