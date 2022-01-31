@@ -5,7 +5,8 @@
 <body class="flex flex-col bg-very-pale-blue">
     <nav class="flex-shrink-0 flex justify-between items-center bg-white py-[15px] pl-[150px] pr-[50px]">
 
-        <img src="{% static 'assets/logo-blue.png' %}" alt="" class="w-[120px] h-[25px]">
+        <a href="{% url 'job_portal-home' %}"><img src="{% static 'assets/logo-blue.png' %}" alt=""
+                class="w-[120px] h-[25px]"></a>
         <div x-data="{ show: false }" class="relative">
             <div class="inline-flex items-center gap-x-2">
                 <div class="flex flex-col items-end">
@@ -59,29 +60,16 @@
                         <div class="flex flex-col gap-y-[5px]">
                             {{ seekerForm.seekerskill }}
                         </div>
-                        <!-- <div class="flex flex-col gap-y-[24px]">
-                            <div class="flex flex-col gap-y-[5px]">
-                                <span class="label">Fullname</span>
-                                <div class="flex items-center gap-y-1">
-                                    <select name="" id="" required class="select-2 w-[250px]">
-                                        <option value="" disabled selected hidden>Select from the options</option>
-                                    </select>
-                                    <button class="btn-no-outline">Remove</button>
-                                </div>
-                            </div>
-                            <button class="btn-with-icon w-[175px]">
-                                <span>
-                                    <img src="{% static 'assets/add.svg' %}">
-                                </span>
-                                <span>Add Another</span>
-                            </button>
-                        </div> -->
                         <div class="flex flex-col gap-y-[5px]">
                             <span class="label">Experience</span>
                             {{ seekerForm.experience }}
                         </div>
                         <div class="flex flex-col gap-y-[5px]">
                             <span class="label">Resume</span>
+                            {% if seekerResumeUrl %}
+                            <a href="{{ seekerResumeUrl }}" class="text-xs text-blue-500 underline">View current
+                                resume</a>
+                            {% endif %}
                             {{ seekerForm.resume }}
                         </div>
                     </div>

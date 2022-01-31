@@ -39,16 +39,19 @@ def editProfile(request):
 
     seekerForm = SeekerForm()
     providerForm = ProviderForm()
+    seeker = None
+    seekerResumeUrl = None
+    provider = None
 
     if getattr(request.user, 'provider', None) is not None:
-        if request.method == 'POST':
-            providerForm = ProviderForm(request.POST)
-            if providerForm.is_valid():
-                details = providerForm.cleaned_data
-                Provider.objects.filter(user_id=request.user.id).update(**details)
-                return redirect('profile')
-
         provider = request.user.provider
+
+        if request.method == 'POST':
+            providerForm = ProviderForm(instance=provider, data=request.POST)
+            if providerForm.is_valid():
+                providerForm.save()
+                return redirect('profile')
+        
         providerForm = ProviderForm(
             initial={
                 'name': provider.name,       
@@ -58,26 +61,28 @@ def editProfile(request):
             }
         )
     else:
+        seeker = request.user.seeker
+
+        if seeker.resume:
+            seekerResumeUrl = seeker.resume.url
+
         if request.method == 'POST':
-            seekerForm = SeekerForm(request.POST, request.FILES)
+            seekerForm = SeekerForm(instance=seeker, data=request.POST, files=request.FILES)
+
             if seekerForm.is_valid():
-                details = seekerForm.cleaned_data
+                seekerForm.save()
+                seekerSkills = seekerForm.cleaned_data['seekerskill']
+                seeker.seekerskill_set.all().delete()
+                for seekerSkill in seekerSkills:
+                    seeker.seekerskill_set.create(skill=seekerSkill)
 
-                Seeker.objects.filter(user_id=request.user.id).first().seekerskill_set.all().delete()
-                for seekerskill in details['seekerskill']:
-                    Seeker.objects.filter(user_id=request.user.id).first().seekerskill_set.create(skill=seekerskill)
-                details.pop('seekerskill')
-
-                Seeker.objects.filter(user_id=request.user.id).update(**details)
                 return redirect('profile')
 
-        seeker = request.user.seeker
         seekerForm = SeekerForm(
             initial={
                 'full_name': seeker.full_name,       
                 'about_me': seeker.about_me,       
-                'experience': seeker.experience,       
-                'resume': seeker.resume,
+                'experience': seeker.experience,
                 'seekerskill': [
                     skill for skill in Seeker.objects.filter(user_id=request.user.id).first().seekerskill_set.all().values_list("skill_id", flat=True)
                 ]
@@ -89,7 +94,8 @@ def editProfile(request):
         'users/pages/edit-profile.html', 
         { 
             'providerForm': providerForm,
-            'seekerForm': seekerForm
+            'seekerForm': seekerForm,
+            'seekerResumeUrl': seekerResumeUrl,
         }
     )
 
