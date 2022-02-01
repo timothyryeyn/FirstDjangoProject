@@ -8,4 +8,5 @@ urlpatterns = [
     path('profile/jobs/create/', views.createJob, name='post_job'),
     path('profile/jobs/<int:id>/', views.showPostedJob, name='show_posted_job'),
     path('profile/jobs/<int:id>/edit', views.editJob, name='edit_job'),
+    path('profile/jobs/<int:id>/applicants/<int:application_id>', views.showPostedJobApplicant, name='show_posted_job_applicant'),
 ]

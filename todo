@@ -16,13 +16,13 @@
          - change password
          - delete account
 - Provider
-    - post jobs
-    - view posted jobs
+    - post jobs @done
+    - view posted jobs @done
     - view applicants
     - deactivate posted job
 - Home
     - jobs list (query params)
-    - Apply for job
+    - Apply for job @done
 - Alerts
     - skill matched job posted
 - Reports generation

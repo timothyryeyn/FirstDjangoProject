@@ -9,7 +9,7 @@
         <div x-data="{ show: false }" class="relative">
             <div class="inline-flex items-center gap-x-2">
                 <div class="flex flex-col items-end">
-                    <span>{{ user.username }}</span>
+                    <span>{{ username }}</span>
                 </div>
                 <img src="{% static 'assets/profile.svg' %}" alt="" class="w-[36px] h-[36px]" @click="show = ! show">
             </div>
@@ -30,8 +30,8 @@
         <section class="flex-grow flex flex-col gap-y-[43px] bg-white min-h-[400px] p-[36px]">
             <div class="flex-shrink-0 flex flex-col gap-y-[21px]">
                 <div class="flex justify-between items-start">
-                    <a href="#" class="flex items-center gap-x-2">
-                        <span><img src="assets/chevron-left.svg" alt=""></span>
+                    <a href="{% url 'show_posted_job' id=jobId %}" class="flex items-center gap-x-2">
+                        <span><img src="{% static 'assets/chevron-left.svg' %}" alt=""></span>
                         <span class="uppercase text-sm font-light">Go Back</span>
                     </a>
                 </div>
@@ -43,45 +43,55 @@
                     <div class="flex flex-col gap-y-[8px]">
                         <div class="label-2">Fullname</div>
                         <div class="info">
-                            Timothy Ryeyn Lim Perez
+                            {% if seeker.full_name %}
+                            {{ seeker.full_name }}
+                            {% else %}
+                            <span class="text-xs font-normal">Not set</span>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="flex flex-col gap-y-[8px]">
                         <div class="label-2">Skills</div>
                         <div class="info prose">
+                            {% if seeker.seekerskill_set.all %}
                             <ul>
-                                <li>Foo</li>
-                                <li>Foo</li>
-                                <li>Foo</li>
+                                {% for seeker_skill in seeker.seekerskill_set.all %}
+                                <li>{{ seeker_skill.skill.name }}</li>
+                                {% endfor %}
                             </ul>
+                            {% else %}
+                            <span class="text-xs font-normal">Not set</span>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="inline-flex flex-col items-start gap-y-[8px]">
                         <div class="label-2">Resume</div>
-                        <button class="btn">View Resume</button>
+                        {% if seeker.resume %}
+                        <a href="{{ seeker.resume.url }}"><button class="btn">View Resume</button></a>
+                        {% else %}
+                        <span class="text-xs font-normal">Not set</span>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col-span-2 flex flex-col gap-y-[34px]">
                     <div class="flex flex-col gap-y-[8px]">
                         <div class="label-2">About Me</div>
                         <div class="info prose">
-                            BS Information Technology or BS Computer Science or BS Electronics Engineering
-                            Exposure on developing web solutions in Drupal and PHP implementations in a LAMP
-                            environment as well as user interfaces
-                            for websites and or web application
-                            Ability to architect enterprise Drupal solutions including data, display, and
-                            information
+                            {% if seeker.about_me %}
+                            {{ seeker.about_me }}
+                            {% else %}
+                            <span class="text-xs font-normal">Not set</span>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="flex flex-col gap-y-[8px]">
                         <div class="label-2">Experience</div>
                         <div class="info prose">
-                            BS Information Technology or BS Computer Science or BS Electronics Engineering
-                            Exposure on developing web solutions in Drupal and PHP implementations in a LAMP
-                            environment as well as user interfaces
-                            for websites and or web application
-                            Ability to architect enterprise Drupal solutions including data, display, and
-                            information
+                            {% if seeker.experience %}
+                            {{ seeker.experience }}
+                            {% else %}
+                            <span class="text-xs font-normal">Not set</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

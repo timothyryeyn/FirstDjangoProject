@@ -83,24 +83,27 @@
                 <div class="text-[22px] font-semibold italic text-left">Applicants</div>
             </div>
             <div class="flex flex-col gap-y-[41px] px-[70px] py-[20px] max-h-[700px] overflow-auto">
+                {% for application in job.application_set.all %}
                 <div
                     class="flex justify-between items-center p-[23px] shadow-[0_0_20px_0_rgba(24,47,67,0.2)] rounded-[6px]">
                     <div class="flex flex-col gap-x-[14px]">
                         <div class="text-[22px] font-semibold italic">
-                            Timothy Ryeyn Perez
+                            {{ application.seeker.full_name }}
                         </div>
                         <div class="flex items-center gap-x-[18px] text-xs font-light uppercase">
                             <span>posted on</span>
-                            <span>mar 13 2020</span>
+                            <span>{{ application.date_applied|date:"F j, Y" }}</span>
                         </div>
                     </div>
                     <div>
-                        <a href="#" class="flex items-center gap-x-2">
+                        <a href="{% url 'show_posted_job_applicant' id=job.id application_id=application.id %}"
+                            class="flex items-center gap-x-2">
                             <span class="uppercase text-sm font-light">view profile</span>
-                            <span><img src="assets/chevron-right.svg" alt=""></span>
+                            <span><img src="{% static 'assets/chevron-right.svg' %}" alt=""></span>
                         </a>
                     </div>
                 </div>
+                {% endfor %}
             </div>
         </section>
     </main>

@@ -30,29 +30,40 @@
     <main class="flex flex-col gap-y-[44px] flex-grow px-[200px] py-[60px]">
         <section class="flex-grow flex flex-col gap-y-[55px] bg-white min-h-[400px] p-[36px]">
             <div class="flex flex-col items-start mx-auto w-max gap-y-[8px]">
-                <form method="GET">
+                <form method="GET" class="flex flex-col gap-y-[10px]">
                     <div class="flex gap-x-[16px]">
-                        <input type="search" name="search" id="" placeholder="Search" class="input-1px w-[400px]">
+                        <input type="search" name="search" id="" placeholder="Search" class="input-1px w-[400px]"
+                            value="{{ request.GET.search|urlencode }}">
                         <button class="btn" type="submit">Search</button>
                     </div>
                     <div class="flex gap-x-[18px]">
                         <div class="flex flex-col gap-y-[5px]">
-                            <span class="label">City</span>
-                            <select name="" id="" class="select-2 w-[200px]">
-                                <option value="" disabled selected hidden>Select City</option>
-                            </select>
-                        </div>
-                        <div class="flex flex-col gap-y-[5px]">
-                            <span class="label">Country</span>
-                            <select name="" id="" class="select-2 w-[200px]">
-                                <option value="" disabled selected hidden>Select Country</option>
+                            <span class="label">Job Type</span>
+                            <select name="jobType" id="" class="select-2 w-[400px]">
+                                <option value="0">All</option>
+                                {% if jobType == 1 %}
+                                <option value="1" selected>Full Time</option>
+                                {% else %}
+                                <option value="1">Full Time</option>
+                                {% endif %}
+                                {% if jobType == 2 %}
+                                <option value="2" selected>Part Time</option>
+                                {% else %}
+                                <option value="2">Part Time</option>
+                                {% endif %}
                             </select>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="flex flex-col gap-y-[32px]">
-                <div class="text-[22px] font-semibold italic">Search Results for Foobar</div>
+                <div class="text-[22px] font-semibold italic">
+                    {% if search is not None %}
+                    Search Results for {{ search }}
+                    {% else %}
+                    All Jobs
+                    {% endif %}
+                </div>
 
                 <div class="flex flex-col gap-y-[32px] px-[70px]">
                     {% for job in jobs %}
