@@ -34,7 +34,16 @@
                     <span><img src="{% static 'assets/chevron-left.svg' %}" alt=""></span>
                     <span class="uppercase text-sm font-light">Go Back</span>
                 </a>
-                <a href="{% url 'edit_job' id=job.id %}"><button class="btn-outline">Edit</button></a>
+                <div class="flex gap-x-[10px] items-center">
+                    <a href="{% url 'edit_job' id=job.id %}">
+                        <button class="btn-outline">Edit</button>
+                    </a>
+                    <form action="{% url 'deactivate_job' id=job.id %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{ job.id }}">
+                        <button class="btn-outline-danger">Deactivate</button>
+                    </form>
+                </div>
             </div>
             <div class="text-[28px] font-semibold self-center">{{ job.name }}</div>
             <div class="flex-grow grid grid-cols-3 gap-x-8">

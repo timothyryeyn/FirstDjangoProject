@@ -18,10 +18,10 @@
 - Provider
     - post jobs @done
     - view posted jobs @done
-    - view applicants
-    - deactivate posted job
+    - view applicants @done
+    - deactivate posted job @done
 - Home
-    - jobs list (query params)
+    - jobs list (query params) @done
     - Apply for job @done
 - Alerts
     - skill matched job posted

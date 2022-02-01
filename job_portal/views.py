@@ -148,6 +148,12 @@ def editJob(request, id):
 
 
 @login_required
+def deactivateJob(request, id):
+    request.user.provider.job_set.filter(id=id).first().delete()
+    return redirect('profile')
+
+
+@login_required
 def showPostedJob(request, id):
     provider = request.user.provider
     job = provider.job_set.filter(id=id).first()

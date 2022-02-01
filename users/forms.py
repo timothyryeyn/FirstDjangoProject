@@ -12,6 +12,24 @@ class UserRegisterForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
+    def clean_username(self):
+        """
+        Returns the email if entered email is unique otherwise gives duplicate_email error.
+        """
+        username = self.cleaned_data['username']
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError('Username already used.')
+        return username
+
+    def clean_email(self):
+        """
+        Returns the email if entered email is unique otherwise gives duplicate_email error.
+        """
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError('Email already used.')
+        return email
+
     CHOICES = [('1', 'Seeker'), ('2', 'Provider')]
 
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Enter username', 'class': 'input-2px'}))
