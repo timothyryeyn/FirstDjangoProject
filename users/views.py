@@ -13,8 +13,8 @@ def register(request):
         if form.is_valid():
             user = form.save()
             type = form.cleaned_data.get('type')
-            
-            if type == 1:
+            pprint(type)            
+            if type == '1':
                 seeker = Seeker(user=user)
                 seeker.save()
             else:
